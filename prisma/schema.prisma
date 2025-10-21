@@ -29,6 +29,14 @@ model Product {
   @@map("products")
 }
 
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
 model Order {
   id          String      @id @default(cuid())
   customerName String
@@ -60,10 +68,4 @@ model OrderItem {
   @@map("order_items")
 }
 
-enum OrderStatus {
-  PENDING
-  PROCESSING
-  SHIPPED
-  DELIVERED
-  CANCELLED
-}
+

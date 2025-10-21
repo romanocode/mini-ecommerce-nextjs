@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { OrderStatus } from '@prisma/client';
 
 export async function GET(request: NextRequest) {
   try {
@@ -71,15 +72,24 @@ export async function POST(request: NextRequest) {
       total += price * item.quantity;
     }
 
+    console.log({
+          customerName,
+          customerEmail,
+          customerPhone,
+          total
+        });
+
     // Crear la orden con sus items usando una transacción
     const order = await prisma.$transaction(async (tx) => {
+
       // Crear la orden
       const newOrder = await tx.order.create({
         data: {
           customerName,
           customerEmail,
           customerPhone,
-          total
+          total,
+          status: OrderStatus.PENDING
         }
       });
 
