@@ -20,7 +20,7 @@ Tecnologías
 - Prisma (Postgres)
 - Tailwind CSS
 - Zustand
-- Node.js, npm/yarn/pnpm
+- Node.js, 
 
 Estructura del proyecto (resumen)
 - app/ — rutas y páginas (App Router)
