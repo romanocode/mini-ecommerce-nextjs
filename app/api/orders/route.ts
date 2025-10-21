@@ -72,12 +72,7 @@ export async function POST(request: NextRequest) {
       total += price * item.quantity;
     }
 
-    console.log({
-          customerName,
-          customerEmail,
-          customerPhone,
-          total
-        });
+    
 
     // Crear la orden con sus items usando una transacción
     const order = await prisma.$transaction(async (tx) => {
