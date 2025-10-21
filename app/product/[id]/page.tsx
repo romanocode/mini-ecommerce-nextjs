@@ -1,6 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { products } from '../../../data/products';
+import { prisma } from '@/lib/db';
 
 // Tipo para los parámetros de la página
 type ProductPageProps = {
@@ -13,12 +13,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params;
   
   // Ejemplo de validación simple
-  if (!id || isNaN(Number(id))) {
+  if (!id) {
     notFound();
   }
 
-  // Buscar el producto directamente en los datos
-  const product = products.find((p) => p.id === id);
+  // Buscar el producto en la base de datos
+  const product = await prisma.product.findUnique({
+    where: { id }
+  });
+  
   if (!product) {
     notFound();
   }

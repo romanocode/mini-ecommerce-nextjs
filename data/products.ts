@@ -1,6 +1,7 @@
- import { Product } from '../type';
+import { Product } from '../type';
  
- export const products: Product[] = [
+// Datos de prueba comentados para usar los datos de la base de datos Neon
+export const products: Product[] = [
   {
     id: '1',
     name: 'Zapatillas Urbanas',

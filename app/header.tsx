@@ -9,10 +9,8 @@ import { useState, useEffect } from "react";
 export default function Header() {
   const { getTotalItems, items } = useCartStore();
   const [totalItems, setTotalItems] = useState(0);
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
     setTotalItems(getTotalItems());
   }, [getTotalItems, items]);
 
@@ -27,7 +25,7 @@ export default function Header() {
           </Link>
 
           {/* Navigation Links */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8 ml-8">
             <Link 
               href="/" 
               className="flex items-center space-x-1 text-gray-600 hover:text-gray-900 transition-colors"
@@ -56,7 +54,7 @@ export default function Header() {
             <Button variant="outline" className="relative">
               <ShoppingCart className="h-4 w-4 mr-2" />
               Carrito
-              {isClient && totalItems > 0 && (
+              {totalItems > 0 && (
                 <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {totalItems}
                 </span>

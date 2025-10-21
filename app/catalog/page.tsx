@@ -1,18 +1,41 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ProductCard } from '@/components/ProductCard';
-import { products } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Search, Filter, Grid, List } from 'lucide-react';
+import type { Product } from '@/type';
+import type { Product } from '@/type';
 
 export default function CatalogPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('name');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Cargar productos desde la API
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const response = await fetch('/api/products');
+        if (!response.ok) {
+          throw new Error('Error al cargar productos');
+        }
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProducts();
+  }, []);
 
   // Filtrar productos
   const filteredProducts = products.filter(product => {
@@ -119,39 +142,48 @@ export default function CatalogPage() {
           </CardContent>
         </Card>
 
-        {/* Results Info */}
-        <div className="flex justify-between items-center mb-6">
-          <p className="text-gray-600">
-            Mostrando {sortedProducts.length} de {products.length} productos
-          </p>
-          {selectedCategory !== 'all' && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setSelectedCategory('all')}
-            >
-              Limpiar filtros
-            </Button>
-          )}
-        </div>
+        {/* Loading State */}
+        {loading ? (
+          <div className="text-center py-12">
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              Cargando productos...
+            </h3>
+          </div>
+        ) : (
+          <>
+            {/* Results Info */}
+            <div className="flex justify-between items-center mb-6">
+              <p className="text-gray-600">
+                Mostrando {sortedProducts.length} de {products.length} productos
+              </p>
+              {selectedCategory !== 'all' && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setSelectedCategory('all')}
+                >
+                  Limpiar filtros
+                </Button>
+              )}
+            </div>
 
-        {/* Products Grid */}
-        <div className={
-          viewMode === 'grid' 
-            ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-            : "space-y-4"
-        }>
-          {sortedProducts.map(product => (
-            <ProductCard 
-              product={product} 
-              key={product.id}
-              viewMode={viewMode}
-            />
-          ))}
-        </div>
+            {/* Products Grid */}
+            <div className={
+              viewMode === 'grid' 
+                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                : "space-y-4"
+            }>
+              {sortedProducts.map(product => (
+                <ProductCard 
+                  product={product} 
+                  key={product.id}
+                  viewMode={viewMode}
+                />
+              ))}
+            </div>
 
-        {/* No Results */}
-        {sortedProducts.length === 0 && (
+            {/* No Results */}
+            {sortedProducts.length === 0 && !loading && (
           <div className="text-center py-12">
             <div className="text-gray-400 mb-4">
               <Search className="h-16 w-16 mx-auto" />
@@ -170,6 +202,8 @@ export default function CatalogPage() {
               Limpiar todos los filtros
             </Button>
           </div>
+        )}
+          </>
         )}
       </div>
     </div>
