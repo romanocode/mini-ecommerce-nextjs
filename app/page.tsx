@@ -166,7 +166,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6 text-lg leading-relaxed">
-                  "Excelente servicio y productos de calidad. El envío fue súper rápido y el producto llegó perfecto."
+                  &quot;Excelente servicio y productos de calidad. El envío fue súper rápido y el producto llegó perfecto.&quot;
                 </p>
                 <div className="flex items-center justify-center">
                   <div className="w-12 h-12 bg-gradient-to-r from-pink-400 to-red-400 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
@@ -188,7 +188,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6 text-lg leading-relaxed">
-                  "La mejor experiencia de compra online que he tenido. Atención al cliente excepcional y productos increíbles."
+                  &quot;La mejor experiencia de compra online que he tenido. Atención al cliente excepcional y productos increíbles.&quot;
                 </p>
                 <div className="flex items-center justify-center">
                   <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
@@ -210,7 +210,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-6 text-lg leading-relaxed">
-                  "Productos únicos y precios justos. Definitivamente volveré a comprar. ¡Altamente recomendado!"
+                  &quot;Productos únicos y precios justos. Definitivamente volveré a comprar. ¡Altamente recomendado!&quot;
                 </p>
                 <div className="flex items-center justify-center">
                   <div className="w-12 h-12 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">

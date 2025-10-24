@@ -33,7 +33,7 @@ export default function CheckoutPage() {
   const onSubmit = async (data: CheckoutFormData) => {
     try {
       // Obtener items del carrito
-      const { items, getTotalPrice } = useCartStore.getState();
+      const { items } = useCartStore.getState();
       
       if (items.length === 0) {
         alert('Tu carrito está vacío. Agrega algunos productos antes de proceder.');

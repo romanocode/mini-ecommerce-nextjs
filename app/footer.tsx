@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Package, Github, Linkedin, Mail, ExternalLink } from "lucide-react";
+import { Package, Github, Mail, ExternalLink } from "lucide-react";
 
 export default function Footer() {
   return (

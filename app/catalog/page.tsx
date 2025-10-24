@@ -7,7 +7,6 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Search, Filter, Grid, List } from 'lucide-react';
 import type { Product } from '@/type';
-import type { Product } from '@/type';
 
 export default function CatalogPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -55,7 +54,9 @@ export default function CatalogPage() {
       case 'price-high':
         return (b.salePrice || b.price) - (a.salePrice || a.price);
       case 'newest':
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        const bTime = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        return bTime - aTime;
       default:
         return 0;
     }

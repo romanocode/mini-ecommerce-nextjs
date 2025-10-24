@@ -1,6 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
-import { OrderStatus } from '@prisma/client';
+import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/db'
+import { OrderStatus } from '@prisma/client'
+
+// Tipo de entrada para items de la orden
+type OrderItemInput = { productId: string; quantity: number }
 
 export async function GET(request: NextRequest) {
   try {
@@ -36,8 +39,13 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { customerName, customerEmail, customerPhone, items } = body;
+    const body = await request.json()
+    const { customerName, customerEmail, customerPhone, items } = body as {
+      customerName: string;
+      customerEmail: string;
+      customerPhone: string;
+      items: OrderItemInput[];
+    }
 
     // Validar que hay items en la orden
     if (!items || items.length === 0) {
@@ -90,7 +98,7 @@ export async function POST(request: NextRequest) {
 
       // Crear los items de la orden y actualizar el stock
       const orderItems = await Promise.all(
-        items.map(async (item: any) => {
+        items.map(async (item: OrderItemInput) => {
           const product = await tx.product.findUnique({
             where: { id: item.productId }
           });
